@@ -1,28 +1,25 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import TodoInput from "./components/TodoInput.vue";
+import ListOfTodos from "./components/ListOfTodos.vue";
 
-const todos = ref([]);
-const activity = ref("");
-const isUpdatingTodo = ref(false);
-const todoToUpdateIndex = ref(null);
-const updatedTodo = ref("");
+const todos = ref<string>([]);
+const activity = ref<string>("");
+const isUpdatingTodo = ref<boolean>(false);
+const todoToUpdateIndex = ref<null | number>(null);
+const updatedTodo = ref<string>("");
 
-const submitTodo = () => {
-  todos.value.push(activity.value);
-  activity.value = "";
-};
-
-const deleteTodo = (itemToRemove) => {
+const handleDeleteTodo = (itemToRemove: string) => {
   todos.value = todos.value.filter((item) => item !== itemToRemove);
 };
 
-const updateTodo = (item, index) => {
+const handleStartUpdate = (payload: { index: number; value: string }) => {
   isUpdatingTodo.value = true;
-  todoToUpdateIndex.value = index;
-  updatedTodo.value = item;
+  todoToUpdateIndex.value = payload.index;
+  updatedTodo.value = payload.value;
 };
 
-const submitUpdateTodo = () => {
+const handleSubmitUpdateTodo = () => {
   if (todoToUpdateIndex.value !== null && updatedTodo.value.trim()) {
     todos.value[todoToUpdateIndex.value] = updatedTodo.value;
     isUpdatingTodo.value = false;
@@ -33,33 +30,26 @@ const submitUpdateTodo = () => {
 </script>
 
 <template>
-  <main class="container">
-    <h1>todo list!</h1>
+  <main data-theme="forest" class="h-screen">
+    <h1 class="text-2xl font-extrabold uppercase">yoi list!</h1>
 
-    <div>
-      <h2>what will you do today?</h2>
+    <div class="mt-5">
+      <TodoInput
+        v-model="activity"
+        :todos="todos"
+        @add-todo="(todo) => todos.push(todo)" />
 
-      <input v-model="activity" type="text" placeholder="todo here" />
-      <button @click="submitTodo()">submit</button>
+      <div class="divider"></div>
 
-      <div>
-        <h2>list of todos</h2>
-        <ul>
-          <li v-for="(item, index) in todos" :key="index">
-            <h3 v-if="!(isUpdatingTodo && todoToUpdateIndex === index)">
-              {{ item }}
-            </h3>
-            <div v-else>
-              <input type="text" v-model="updatedTodo" :placeholder="item" />
-              <button @click="submitUpdateTodo()">submit update</button>
-            </div>
-            <div v-if="!(isUpdatingTodo && todoToUpdateIndex === index)">
-              <button @click="deleteTodo(item)">delete</button>
-              <button @click="updateTodo(item, index)">update todo</button>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <ListOfTodos
+        :todos="todos"
+        :isUpdatingTodo="isUpdatingTodo"
+        :todoToUpdateIndex="todoToUpdateIndex"
+        :updatedTodo="updatedTodo"
+        @delete-todo="handleDeleteTodo"
+        @start-update="handleStartUpdate"
+        @submit-update="handleSubmitUpdateTodo"
+        @update:updatedTodo="(val) => (updatedTodo = val)" />
     </div>
   </main>
 </template>
