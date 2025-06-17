@@ -27,14 +27,23 @@ const submitTodo = () => {
 <template>
   <div data-theme="sunset" class="card mx-auto bg-base-100 w-96 shadow-sm">
     <div class="card-body">
-      <h2 class="uppercase card-title">what will you do today?</h2>
-      <input
-        class="input"
-        :value="modelValue"
-        type="text"
-        @input="updateActivity"
-        placeholder="todo here" />
-      <div class="card-actions">
+      <h2 class="uppercase card-title mb-5">what will you do today?</h2>
+
+      <div class="title-todo mb-3">
+        <input
+          class="input"
+          :value="modelValue"
+          type="text"
+          @input="updateActivity"
+          placeholder="Judul"
+          required />
+      </div>
+
+      <div class="short-desc-todo">
+        <input class="input" required type="text" placeholder="Tentang apa?" />
+      </div>
+
+      <div class="card-actions mt-5">
         <button class="btn btn-primary" @click="submitTodo()">submit</button>
       </div>
     </div>

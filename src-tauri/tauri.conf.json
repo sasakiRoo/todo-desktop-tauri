@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "todo-desktop-tauri",
+  "productName": "yoiflow",
   "version": "0.1.0",
-  "identifier": "com.todo-desktop-tauri.app",
+  "identifier": "com.yoiflow.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "todo-desktop-tauri",
+        "title": "yoiflow",
         "width": 800,
         "height": 600
       }

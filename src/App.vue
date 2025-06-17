@@ -2,7 +2,9 @@
 import { ref } from "vue";
 import TodoInput from "./components/TodoInput.vue";
 import ListOfTodos from "./components/ListOfTodos.vue";
+import Sidebar from "./components/Sidebar.vue";
 
+import ParentLayout from "./components/planning/ParentLayout.vue";
 const todos = ref<string>([]);
 const activity = ref<string>("");
 const isUpdatingTodo = ref<boolean>(false);
@@ -30,11 +32,12 @@ const handleSubmitUpdateTodo = () => {
 </script>
 
 <template>
-  <main data-theme="forest" class="h-screen">
-    <h1 class="text-2xl font-extrabold uppercase">yoi list!</h1>
+  <main class="h-screen relative">
+    <Sidebar />
 
     <div class="mt-5">
-      <TodoInput
+      <ParentLayout />
+      <!-- <TodoInput
         v-model="activity"
         :todos="todos"
         @add-todo="(todo) => todos.push(todo)" />
@@ -49,7 +52,7 @@ const handleSubmitUpdateTodo = () => {
         @delete-todo="handleDeleteTodo"
         @start-update="handleStartUpdate"
         @submit-update="handleSubmitUpdateTodo"
-        @update:updatedTodo="(val) => (updatedTodo = val)" />
+        @update:updatedTodo="(val) => (updatedTodo = val)" /> -->
     </div>
   </main>
 </template>
