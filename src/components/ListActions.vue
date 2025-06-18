@@ -4,7 +4,7 @@ import { Icon } from "@iconify/vue";
 
 interface Actions {
   label: string;
-  icon?: string;
+  icon: string;
   action?: () => void;
 }
 
