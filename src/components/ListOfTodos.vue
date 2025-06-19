@@ -33,7 +33,6 @@ const onSubmitUpdate = () => {
     <h2 class="text-md font-bold text-center">list of todos</h2>
     <ul>
       <li
-        data-theme="forest"
         class="card mt-5 w-96 bg-accent-content mx-auto card-xs shadow-sm"
         v-for="(item, index) in todos"
         :key="index">

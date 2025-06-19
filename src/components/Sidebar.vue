@@ -24,15 +24,16 @@ const dynamicIcon = computed(() => {
     </div>
     <div class="p-4">
       <h1 class="mb-3">Actions</h1>
-      <div class="border-2 border-slate-700 rounded-lg p-4 mb-4">
+      <div class="border-1 rounded-lg p-4 mb-4">
         <button
           @click="toggleListActions"
-          class="rounded-full cursor-pointer bg-primary hover:bg-slate-700 transition-colors duration-300 text-white px-4 py-2 flex items-center justify-center w-full">
+          class="rounded-full cursor-pointer bg-slate-800 hover:bg-accent transition-colors duration-300 px-4 py-2 flex items-center justify-center w-full">
           <Icon :icon="dynamicIcon" width="24" height="24" />
         </button>
 
         <Transition name="scale" mode="out-in">
           <ListActions
+            @actionSelected="$emit('actionSelected', $event)"
             :statusOpen="isOpenListActions"
             v-show="isOpenListActions" />
         </Transition>
@@ -44,7 +45,6 @@ const dynamicIcon = computed(() => {
       <div class="flex gap-3">
         <div v-for="(item, index) in actionList" :key="index">
           <div
-            data-theme="aqua"
             :class="`${index !== 1 ? 'badge-primary' : 'badge-secondary'}`"
             class="badge font-bold">
             <h1>{{ item.label }}</h1>

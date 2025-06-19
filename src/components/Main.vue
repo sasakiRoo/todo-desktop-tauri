@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import TodoInput from "./notes_taking/TodoInput.vue";
-
 interface Props {
   isOpenListActions?: boolean;
+  currentComponent: string | null;
 }
 
 const props = defineProps<Props>();
@@ -11,8 +9,8 @@ const props = defineProps<Props>();
 
 <template>
   <main
-    :class="`${isOpenListActions ? 'w-3/4!' : 'w-full!'}`"
-    class="h-full bg-slate-900">
-    <TodoInput />
+    :class="`${props.isOpenListActions ? 'w-3/4!' : 'w-full!'}`"
+    class="h-full flex flex-col justify-center bg-slate-900">
+    <component :is="props.currentComponent" />
   </main>
 </template>
